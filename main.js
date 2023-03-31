@@ -9,6 +9,14 @@ let c_text = document.querySelector("#c_text");
 let d_text = document.querySelector("#d_text");
 let submit = document.querySelector("#submit");
 let previous = document.querySelector("#previous");
+let quizbody = document.querySelector(".quiz-body");
+let btn = document.querySelector(".btn");
+let quizheader = document.querySelector(".quiz-header");
+
+
+function reload(){
+    location.reload();
+}
 
 const quizData = [
     {
@@ -43,12 +51,17 @@ const quizData = [
         d: "none of the above",
         correct: "b",
     },
+    {
+        
+    },
 ];
 
 // console.log(quizData[0].question)
 // getData = quizData[0]
 datacount = 0
 console.log("defalt",datacount)
+
+
 
 previous.classList.add("hide_previous");
 submit.classList.add("bTn");
@@ -61,54 +74,85 @@ c_text.innerHTML = quizData[datacount].c;
 d_text.innerHTML = quizData[datacount].d;
 
 
+
 function nextquiz(){
-    datacount++
+datacount++
+if(datacount === 3){
+    submit.innerHTML = "Submit";
+
+}
+if(datacount === 4){
+    submit.innerHTML = "Submited";
+
+}
+else{
+    previous.classList.remove("hide_previous");
+    submit.classList.remove("bTn");
+    submit.classList.add("previous");
+}
+quizquestion.innerHTML = quizData[datacount].question;
+a_text.innerHTML = quizData[datacount].a;
+b_text.innerHTML = quizData[datacount].b;
+c_text.innerHTML = quizData[datacount].c;
+d_text.innerHTML = quizData[datacount].d;
+a.checked = false;
+b.checked = false;
+c.checked = false;
+d.checked = false;
+
+if (submit.innerHTML === "Submited"){
+    quizbody.remove();
+    btn.remove();
+    quizheader.innerHTML += `<div class="resultSpace">
+        <div class=content>
+            <div class="wrapper-1">
+                <div class="wrapper-2">
+                    <h1>Thank you !</h1>
+                    <p>Thanks for submiting to our Quiz. </p>
+                    <h3>Your Result is:</h3>
+                    <p class="confirmR">${result} Out of 20</p>
+                    <button class="go-home" onclick="reload()">
+                        go home
+                    </button>
+                </div>
+                
+            </div>
+        </div>`
+}
+}
+    
+
+
+
+let preFunc = () =>{
+datacount--
     if(datacount === 0){
         previous.classList.add("hide_previous");
         submit.classList.add("bTn");
         submit.classList.remove("previous");
     }
-    if(datacount === 3){
-        submit.innerHTML = "Submit";
-    }
-    else{
-        previous.classList.remove("hide_previous");
-        submit.classList.remove("bTn");
-        submit.classList.add("previous");
-    }
+
+    submit.innerHTML = "Next";
     quizquestion.innerHTML = quizData[datacount].question;
     a_text.innerHTML = quizData[datacount].a;
     b_text.innerHTML = quizData[datacount].b;
     c_text.innerHTML = quizData[datacount].c;
     d_text.innerHTML = quizData[datacount].d;
+
     
-console.log("next",datacount)
+
 }
 
-
-function previosquiz(){
-    datacount--
-
-    if(datacount === 0){
-        previous.classList.add("hide_previous");
-        submit.classList.add("bTn");
-        submit.classList.remove("previous");
-    }
-    if(datacount === 3){
-        submit.innerHTML = "Submit";
+let result = 0;
+let quizans = (userans) =>{
+    let correctAns = quizData[datacount].correct ;
+    
+    if (userans === correctAns){
+       result = result + 5;
     }
     else{
-        previous.classList.remove("hide_previous");
-        submit.classList.remove("bTn");
-        submit.classList.add("previous");
+        console.log("wrong ans");
     }
-    quizquestion.innerHTML = quizData[datacount].question;
-    a_text.innerHTML = quizData[datacount].a;
-    b_text.innerHTML = quizData[datacount].b;
-    c_text.innerHTML = quizData[datacount].c;
-    d_text.innerHTML = quizData[datacount].d;
-
-    
-console.log("back",datacount)
+    console.log(result)
 }
 
