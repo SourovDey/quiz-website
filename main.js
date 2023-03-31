@@ -12,11 +12,9 @@ let previous = document.querySelector("#previous");
 let quizbody = document.querySelector(".quiz-body");
 let btn = document.querySelector(".btn");
 let quizheader = document.querySelector(".quiz-header");
+let startquizpage = document.querySelector(".resultSpace");
 
 
-function reload(){
-    location.reload();
-}
 
 const quizData = [
     {
@@ -56,51 +54,61 @@ const quizData = [
     },
 ];
 
-// console.log(quizData[0].question)
-// getData = quizData[0]
+
 datacount = 0
 console.log("defalt",datacount)
 
 
+let startHome = () =>{
+    startquizpage.remove();
+}
 
-previous.classList.add("hide_previous");
-submit.classList.add("bTn");
-submit.classList.remove("previous");
-    
+
+
 quizquestion.innerHTML = quizData[datacount].question;
 a_text.innerHTML = quizData[datacount].a;
 b_text.innerHTML = quizData[datacount].b;
 c_text.innerHTML = quizData[datacount].c;
 d_text.innerHTML = quizData[datacount].d;
+
+submit.classList.remove("previous");
+previous.classList.add("hide_previous");
+submit.classList.add("bTn");
+        
+
+function reload(){
+    location.reload();
+}
+
 
 
 
 function nextquiz(){
-datacount++
-if(datacount === 3){
+    datacount++
+    if(datacount === 3){
     submit.innerHTML = "Submit";
 
-}
-if(datacount === 4){
+    }
+    if(datacount === 4){
     submit.innerHTML = "Submited";
 
-}
-else{
+    }
+    else{
     previous.classList.remove("hide_previous");
     submit.classList.remove("bTn");
     submit.classList.add("previous");
-}
-quizquestion.innerHTML = quizData[datacount].question;
-a_text.innerHTML = quizData[datacount].a;
-b_text.innerHTML = quizData[datacount].b;
-c_text.innerHTML = quizData[datacount].c;
-d_text.innerHTML = quizData[datacount].d;
-a.checked = false;
-b.checked = false;
-c.checked = false;
-d.checked = false;
+    }
+    quizquestion.innerHTML = quizData[datacount].question;
+    a_text.innerHTML = quizData[datacount].a;
+    b_text.innerHTML = quizData[datacount].b;
+    c_text.innerHTML = quizData[datacount].c;
+    d_text.innerHTML = quizData[datacount].d;
+    a.checked = false;
+    b.checked = false;
+    c.checked = false;
+    d.checked = false;
 
-if (submit.innerHTML === "Submited"){
+    if (submit.innerHTML === "Submited"){
     quizbody.remove();
     btn.remove();
     quizheader.innerHTML += `<div class="resultSpace">
@@ -118,7 +126,7 @@ if (submit.innerHTML === "Submited"){
                 
             </div>
         </div>`
-}
+    }
 }
     
 
